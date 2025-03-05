@@ -1,0 +1,9 @@
+{
+	"name": "sampleazuredatafactory98",
+	"location": "israelcentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "45d6edaf-90d1-4106-b32a-0b11f4143b89",
+		"tenantId": "2800c0a0-70e9-49be-8733-faeaa6aced99"
+	}
+}
