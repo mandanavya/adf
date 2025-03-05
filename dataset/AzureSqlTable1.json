@@ -5,26 +5,12 @@
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"table1": {
-				"type": "string"
-			},
-			"schema1": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": {
-				"value": "@dataset().schema1",
-				"type": "Expression"
-			},
-			"table": {
-				"value": "@dataset().table1",
-				"type": "Expression"
-			}
+			"schema": "schema2",
+			"table": "newnewtable"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
