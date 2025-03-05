@@ -10,7 +10,10 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "schema2",
-			"table": "newnewtable"
+			"table": {
+				"value": "@item()",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
