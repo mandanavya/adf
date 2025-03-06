@@ -1,12 +1,12 @@
 {
-	"name": "PrepAzureSqlTable",
+	"name": "webdata",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"prepapidetails": {
+			"apidetails": {
 				"type": "string"
 			}
 		},
@@ -14,8 +14,11 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "prep",
-			"table": "prepapidetails"
+			"schema": "stage",
+			"table": {
+				"value": "@dataset().apidetails",
+				"type": "Expression"
+			}
 		}
 	}
 }

@@ -1,12 +1,12 @@
 {
-	"name": "PrepAzureSqlTable",
+	"name": "CountriesSql",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"prepapidetails": {
+			"countrydetails": {
 				"type": "string"
 			}
 		},
@@ -14,8 +14,11 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "prep",
-			"table": "prepapidetails"
+			"schema": "country_schema",
+			"table": {
+				"value": "@dataset().countrydetails",
+				"type": "Expression"
+			}
 		}
 	}
 }

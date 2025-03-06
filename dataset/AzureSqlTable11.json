@@ -1,12 +1,12 @@
 {
-	"name": "PrepAzureSqlTable",
+	"name": "AzureSqlTable11",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"prepapidetails": {
+			"prepdetails": {
 				"type": "string"
 			}
 		},
@@ -15,7 +15,10 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "prep",
-			"table": "prepapidetails"
+			"table": {
+				"value": "@dataset().prepdetails",
+				"type": "Expression"
+			}
 		}
 	}
 }

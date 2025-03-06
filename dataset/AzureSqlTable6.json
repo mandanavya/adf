@@ -1,0 +1,30 @@
+{
+	"name": "AzureSqlTable6",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"customersschema": {
+				"type": "string"
+			},
+			"customerstable": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().customersschema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().customerstable",
+				"type": "Expression"
+			}
+		}
+	}
+}

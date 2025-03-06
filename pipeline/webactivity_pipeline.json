@@ -148,7 +148,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable13",
+						"referenceName": "PrepAzureSqlTable",
 						"type": "DatasetReference",
 						"parameters": {
 							"prepapidetails": "prepapidetails"

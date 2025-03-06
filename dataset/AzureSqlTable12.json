@@ -1,12 +1,12 @@
 {
-	"name": "PrepAzureSqlTable",
+	"name": "AzureSqlTable12",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"prepapidetails": {
+			"websp": {
 				"type": "string"
 			}
 		},
@@ -15,7 +15,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "prep",
-			"table": "prepapidetails"
+			"table": "websp"
 		}
 	}
 }

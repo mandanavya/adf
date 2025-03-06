@@ -1,12 +1,12 @@
 {
-	"name": "PrepAzureSqlTable",
+	"name": "AzureSqlTable7",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"prepapidetails": {
+			"sptable": {
 				"type": "string"
 			}
 		},
@@ -14,8 +14,11 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "prep",
-			"table": "prepapidetails"
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().sptable",
+				"type": "Expression"
+			}
 		}
 	}
 }
