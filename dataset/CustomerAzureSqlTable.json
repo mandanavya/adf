@@ -1,0 +1,24 @@
+{
+	"name": "CustomerAzureSqlTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"customerdetails": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "stage",
+			"table": {
+				"value": "@dataset().customerdetails",
+				"type": "Expression"
+			}
+		}
+	}
+}

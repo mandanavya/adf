@@ -1,0 +1,24 @@
+{
+	"name": "AzureSqlTable13",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cleanedcustomerdetails": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "prep",
+			"table": {
+				"value": "@dataset().cleanedcustomerdetails",
+				"type": "Expression"
+			}
+		}
+	}
+}
