@@ -9,7 +9,7 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "schema2",
+			"schema": "todayschema",
 			"table": {
 				"value": "@item()",
 				"type": "Expression"
