@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "FOOD_DELIVERY_SCHEMA",
-			"table": "TRANSACTION"
+			"table": "TRANSACTION_DETAILS"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
