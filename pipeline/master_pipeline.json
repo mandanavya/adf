@@ -57,6 +57,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"pipeline": {
+						"referenceName": "new_transaction_pipeline",
+						"type": "PipelineReference"
+					},
 					"waitOnCompletion": true
 				}
 			}
