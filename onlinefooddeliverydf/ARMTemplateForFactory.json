@@ -139,79 +139,96 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/product_pipeline')]",
+			"name": "[concat(parameters('factoryName'), '/master_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "product_data",
-						"type": "Copy",
+						"name": "PL_Customer",
+						"type": "ExecutePipeline",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
 							"secureInput": false
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"source": {
-								"type": "SqlServerSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
+							"pipeline": {
+								"referenceName": "customer_pipeline",
+								"type": "PipelineReference"
 							},
-							"sink": {
-								"type": "SnowflakeV2Sink",
-								"importSettings": {
-									"type": "SnowflakeImportCopyCommand"
-								}
-							},
-							"enableStaging": true,
-							"stagingSettings": {
-								"linkedServiceName": {
-									"referenceName": "linkedServiceforStaging",
-									"type": "LinkedServiceReference"
-								}
-							}
-						},
-						"inputs": [
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "PL_Product",
+						"type": "ExecutePipeline",
+						"dependsOn": [
 							{
-								"referenceName": "SqlServerTable",
-								"type": "DatasetReference",
-								"parameters": {}
+								"activity": "PL_Customer",
+								"dependencyConditions": [
+									"Succeeded"
+								]
 							}
 						],
-						"outputs": [
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "product_pipeline",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "PL_Transaction",
+						"type": "ExecutePipeline",
+						"dependsOn": [
 							{
-								"referenceName": "SnowflakeTable",
-								"type": "DatasetReference",
-								"parameters": {}
+								"activity": "PL_Product",
+								"dependencyConditions": [
+									"Succeeded"
+								]
 							}
-						]
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "new_transaction_pipeline",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
-				"annotations": [],
-				"lastPublishTime": "2025-03-13T14:11:14Z"
+				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SqlServerTable')]",
-				"[concat(variables('factoryId'), '/datasets/SnowflakeTable')]",
-				"[concat(variables('factoryId'), '/linkedServices/linkedServiceforStaging')]"
+				"[concat(variables('factoryId'), '/pipelines/customer_pipeline')]",
+				"[concat(variables('factoryId'), '/pipelines/product_pipeline')]",
+				"[concat(variables('factoryId'), '/pipelines/new_transaction_pipeline')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/transaction_pipeline')]",
+			"name": "[concat(parameters('factoryName'), '/new_transaction_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "transaction_data",
+						"name": "Copy data1",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -436,6 +453,71 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerTable')]",
+				"[concat(variables('factoryId'), '/datasets/SnowflakeTable')]",
+				"[concat(variables('factoryId'), '/linkedServices/linkedServiceforStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/product_pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "product_data",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "SnowflakeV2Sink",
+								"importSettings": {
+									"type": "SnowflakeImportCopyCommand"
+								}
+							},
+							"enableStaging": true,
+							"stagingSettings": {
+								"linkedServiceName": {
+									"referenceName": "linkedServiceforStaging",
+									"type": "LinkedServiceReference"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SqlServerTable",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SnowflakeTable",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
 				"annotations": [],
 				"lastPublishTime": "2025-03-13T14:11:14Z"
 			},
@@ -459,7 +541,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "FOOD_DELIVERY_SCHEMA",
-					"table": "CUSTOMERS"
+					"table": "TRANSACTION_DETAILS"
 				}
 			},
 			"dependsOn": [
@@ -480,7 +562,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "customers"
+					"table": "up_transactions"
 				}
 			},
 			"dependsOn": [
