@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "customers"
+			"table": "up_transactions"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
